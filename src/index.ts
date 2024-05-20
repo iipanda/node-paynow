@@ -1,0 +1,1 @@
+export { Paynow } from "./paynow";
