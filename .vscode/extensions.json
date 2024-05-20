@@ -1,0 +1,6 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "meganrogge.template-string-converter"
+  ]
+}

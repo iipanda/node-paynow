@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    // Configuration for Node 20
+    // Based on Microsoft recommendations
+    // https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
+    "lib": ["ES2023"],
+    "module": "node16",
+    "target": "ES2022",
+
+    // Allow 'import x from y' when a module doesn't have a default export.
+    // https://www.typescriptlang.org/tsconfig/#allowSyntheticDefaultImports
+    "allowSyntheticDefaultImports": true,
+
+    // Better support for importing CommonJS modules.
+    // https://www.typescriptlang.org/tsconfig/#esModuleInterop
+    "esModuleInterop": true,
+
+    // Ensure that casing is correct in imports.
+    // https://www.typescriptlang.org/tsconfig/#forceConsistentCasingInFileNames
+    "forceConsistentCasingInFileNames": true,
+
+    // Enables all strict type-checking options.
+    // https://www.typescriptlang.org/tsconfig/#strict
+    "strict": true,
+
+    // Skips type checking all .d.ts files for faster builds.
+    // https://www.typescriptlang.org/tsconfig/#skipLibCheck
+    "skipLibCheck": true,
+
+    // Import aliases
+    // https://www.typescriptlang.org/tsconfig/#paths
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
