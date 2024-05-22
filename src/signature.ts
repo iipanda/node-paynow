@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 
 export class Signature {
   constructor(
-    private readonly options: PaynowOptions,
+    private readonly options: Pick<PaynowOptions, "secret">,
     private readonly payload: string,
   ) {}
 
