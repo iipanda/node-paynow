@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll } from "vitest";
 import { Paynow } from "./paynow";
 import { Payments } from "./payments";
 import { DataProcessing } from "./data-processing";
+import { Refunds } from "./refunds";
 
 describe("Paynow", () => {
   let paynow: Paynow;
@@ -27,13 +28,18 @@ describe("Paynow", () => {
     );
   });
 
-  it("exposes the payments object", () => {
+  it("exposes the Payments class", () => {
     expect(paynow.payments).toBeDefined();
     expect(paynow.payments).toBeInstanceOf(Payments);
   });
 
-  it("exposes the dataProcessing object", () => {
+  it("exposes the DataProcessing class", () => {
     expect(paynow.dataProcessing).toBeDefined();
     expect(paynow.dataProcessing).toBeInstanceOf(DataProcessing);
+  });
+
+  it("exposes the Refunds class", () => {
+    expect(paynow.refunds).toBeDefined();
+    expect(paynow.refunds).toBeInstanceOf(Refunds);
   });
 });
