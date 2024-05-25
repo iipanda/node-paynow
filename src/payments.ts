@@ -38,6 +38,19 @@ type CreatePaymentData = {
   paytmentMethodId?: string;
   authorizationCode?: string;
 };
+
+type PaymentStatusResponse = {
+  paymentId: string;
+  status:
+    | "NEW"
+    | "PENDING"
+    | "CONFIRMED"
+    | "EXPIRED"
+    | "REJECTED"
+    | "ERROR"
+    | "ABANDONED";
+};
+
 export class Payments {
   constructor(
     private readonly options: PaynowOptions,
@@ -59,6 +72,23 @@ export class Payments {
         json: data,
       })
       .json<CreatePaymentResponse>()
+      .catch(async error => {
+        if (error instanceof HTTPError) {
+          throw new PaynowError(
+            `Received HTTP error from Paynow: ${error.response.status}`,
+          );
+        }
+
+        throw error;
+      });
+
+    return payment;
+  }
+
+  async getPaymentStatus(paymentId: string): Promise<PaymentStatusResponse> {
+    const payment = await this.api
+      .get(`/v1/payments/${paymentId}/status`)
+      .json<PaymentStatusResponse>()
       .catch(async error => {
         if (error instanceof HTTPError) {
           throw new PaynowError(
