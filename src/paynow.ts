@@ -1,5 +1,6 @@
 import ky, { type KyInstance } from "ky";
 import { Payments } from "./payments";
+import { DataProcessing } from "./data-processing";
 
 export type PaynowOptions = {
   isSandbox?: boolean;
@@ -12,6 +13,7 @@ export class Paynow {
   private readonly api: KyInstance;
 
   public readonly payments: Payments;
+  public readonly dataProcessing: DataProcessing;
 
   constructor(private readonly options: PaynowOptions) {
     this.API_URL = options.isSandbox
@@ -27,5 +29,6 @@ export class Paynow {
     });
 
     this.payments = new Payments(options, this.api);
+    this.dataProcessing = new DataProcessing(this.api);
   }
 }
