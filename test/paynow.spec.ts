@@ -5,6 +5,7 @@ import { Refunds } from "@/refunds";
 import { describe, expect, it } from "vitest";
 
 import ky from "ky";
+import { Notifications } from "@/notifications";
 
 const API_KEY = "test";
 const SECRET = "test";
@@ -56,5 +57,10 @@ describe("Paynow", () => {
   it("Exposes the Refunds class", () => {
     expect(paynow.refunds).toBeDefined();
     expect(paynow.refunds).toBeInstanceOf(Refunds);
+  });
+
+  it("Exposes the Notifications class", () => {
+    expect(paynow.notifications).toBeDefined();
+    expect(paynow.notifications).toBeInstanceOf(Notifications);
   });
 });
