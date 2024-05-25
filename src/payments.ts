@@ -51,6 +51,20 @@ type PaymentStatusResponse = {
     | "ABANDONED";
 };
 
+type PaymentMethod = {
+  id: number;
+  name: string;
+  description?: string;
+  image: string;
+  status?: "ENABLED" | "DISABLED";
+  authorizationType?: "REDIRECT" | "CODE";
+};
+
+type PaymentMethodsResponse = {
+  type: "BLIK" | "PBL" | "CARD";
+  paymentMethods: PaymentMethod[];
+}[];
+
 export class Payments {
   constructor(
     private readonly options: PaynowOptions,
@@ -100,5 +114,22 @@ export class Payments {
       });
 
     return payment;
+  }
+
+  async getPaymentMethods(): Promise<PaymentMethodsResponse> {
+    const paymentMethods = await this.api
+      .get("/v2/payments/paymentmethods")
+      .json<PaymentMethodsResponse>()
+      .catch(async error => {
+        if (error instanceof HTTPError) {
+          throw new PaynowError(
+            `Received HTTP error from Paynow: ${error.response.status}`,
+          );
+        }
+
+        throw error;
+      });
+
+    return paymentMethods;
   }
 }
