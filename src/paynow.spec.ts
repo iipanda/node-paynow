@@ -5,16 +5,12 @@ import { DataProcessing } from "./data-processing";
 import { Refunds } from "./refunds";
 
 describe("Paynow", () => {
-  let paynow: Paynow;
-
-  beforeAll(() => {
-    paynow = new Paynow({
-      apiKey: "test",
-      secret: "test",
-    });
+  const paynow = new Paynow({
+    apiKey: "test",
+    secret: "test",
   });
 
-  it("uses the correct base url", () => {
+  it("Uses the correct base url", () => {
     expect(Reflect.get(paynow, "API_URL")).toBe("https://api.paynow.pl/");
 
     const sandbox = new Paynow({
@@ -28,17 +24,17 @@ describe("Paynow", () => {
     );
   });
 
-  it("exposes the Payments class", () => {
+  it("Exposes the Payments class", () => {
     expect(paynow.payments).toBeDefined();
     expect(paynow.payments).toBeInstanceOf(Payments);
   });
 
-  it("exposes the DataProcessing class", () => {
+  it("Exposes the DataProcessing class", () => {
     expect(paynow.dataProcessing).toBeDefined();
     expect(paynow.dataProcessing).toBeInstanceOf(DataProcessing);
   });
 
-  it("exposes the Refunds class", () => {
+  it("Exposes the Refunds class", () => {
     expect(paynow.refunds).toBeDefined();
     expect(paynow.refunds).toBeInstanceOf(Refunds);
   });
