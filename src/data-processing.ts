@@ -9,9 +9,13 @@ type DataProcessingNotice = {
 export class DataProcessing {
   constructor(private readonly api: KyInstance) {}
 
-  async getDataProcessingNotices(): Promise<DataProcessingNotice[]> {
+  async getDataProcessingNotices(
+    locale?: "pl-PL" | "en-GB" | "uk-UA",
+  ): Promise<DataProcessingNotice[]> {
+    const headers = locale ? { Locale: locale } : {};
+
     const notices = await this.api
-      .get("/v1/payments/dataprocessing/notices")
+      .get("/v1/payments/dataprocessing/notices", { headers })
       .json<DataProcessingNotice[]>()
       .catch(async error => {
         if (error instanceof HTTPError) {
