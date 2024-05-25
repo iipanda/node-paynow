@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Signature } from "./signature";
+import { Signature } from "@/signature";
 
 describe("Signature", () => {
   it("generates the correct signature", () => {

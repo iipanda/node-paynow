@@ -1,8 +1,8 @@
+import { DataProcessing } from "@/data-processing";
+import { Payments } from "@/payments";
+import { Paynow } from "@/paynow";
+import { Refunds } from "@/refunds";
 import { describe, expect, it } from "vitest";
-import { DataProcessing } from "./data-processing";
-import { Payments } from "./payments";
-import { Paynow } from "./paynow";
-import { Refunds } from "./refunds";
 
 describe("Paynow", () => {
   const paynow = new Paynow({
