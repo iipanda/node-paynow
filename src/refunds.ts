@@ -1,6 +1,7 @@
 import { HTTPError, type KyInstance } from "ky";
 import { type PaynowOptions } from "./paynow";
 import { Signature } from "./signature";
+import { PaynowError } from "./error";
 
 type CreateRefundData = {
   idempotencyKey: string;
@@ -34,7 +35,7 @@ export class Refunds {
     const signature = new Signature(this.options, JSON.stringify(body));
 
     const refund = await this.api
-      .post(`/v1/payments/${paymentId}/refunds`, {
+      .post(`v1/payments/${paymentId}/refunds`, {
         headers: {
           Signature: signature.get(),
           "Idempotency-Key": idempotencyKey,
@@ -57,7 +58,7 @@ export class Refunds {
 
   async getRefundStatus(refundId: string): Promise<RefundStatusResponse> {
     const refund = await this.api
-      .get(`/v1/refunds/${refundId}/status`)
+      .get(`v1/refunds/${refundId}/status`)
       .json<RefundStatusResponse>()
       .catch(async error => {
         if (error instanceof HTTPError) {
@@ -74,7 +75,7 @@ export class Refunds {
 
   async cancelRefund(refundId: string): Promise<void> {
     await this.api
-      .post(`/v1/refunds/${refundId}/cancel`)
+      .post(`v1/refunds/${refundId}/cancel`)
       .json<void>()
       .catch(async error => {
         if (error instanceof HTTPError) {

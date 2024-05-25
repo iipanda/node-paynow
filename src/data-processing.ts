@@ -1,4 +1,5 @@
 import { HTTPError, type KyInstance } from "ky";
+import { PaynowError } from "./error";
 
 type DataProcessingNotice = {
   title: string;
@@ -15,7 +16,7 @@ export class DataProcessing {
     const headers = locale ? { Locale: locale } : {};
 
     const notices = await this.api
-      .get("/v1/payments/dataprocessing/notices", { headers })
+      .get("v1/payments/dataprocessing/notices", { headers })
       .json<DataProcessingNotice[]>()
       .catch(async error => {
         if (error instanceof HTTPError) {

@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeAll } from "vitest";
-import { Paynow } from "./paynow";
-import { Payments } from "./payments";
+import { describe, expect, it } from "vitest";
 import { DataProcessing } from "./data-processing";
+import { Payments } from "./payments";
+import { Paynow } from "./paynow";
 import { Refunds } from "./refunds";
 
 describe("Paynow", () => {
