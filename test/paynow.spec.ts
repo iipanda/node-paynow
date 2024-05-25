@@ -4,24 +4,43 @@ import { Paynow } from "@/paynow";
 import { Refunds } from "@/refunds";
 import { describe, expect, it } from "vitest";
 
+import ky from "ky";
+
+const API_KEY = "test";
+const SECRET = "test";
+
 describe("Paynow", () => {
+  const spy = vi.spyOn(ky, "create");
+
   const paynow = new Paynow({
-    apiKey: "test",
-    secret: "test",
+    apiKey: API_KEY,
+    secret: SECRET,
   });
 
-  it("Uses the correct base url", () => {
-    expect(Reflect.get(paynow, "API_URL")).toBe("https://api.paynow.pl/");
+  it("Initializes the API client properly", () => {
+    expect(spy).toHaveBeenLastCalledWith({
+      prefixUrl: "https://api.paynow.pl/",
+      retry: 0,
+      headers: {
+        "Api-Key": API_KEY,
+      },
+    });
+  });
 
-    const sandbox = new Paynow({
-      apiKey: "test",
-      secret: "test",
+  it("Intializes the API client properly for sandbox environment", () => {
+    new Paynow({
+      apiKey: API_KEY,
+      secret: SECRET,
       isSandbox: true,
     });
 
-    expect(Reflect.get(sandbox, "API_URL")).toBe(
-      "https://api.sandbox.paynow.pl/",
-    );
+    expect(spy).toHaveBeenLastCalledWith({
+      prefixUrl: "https://api.sandbox.paynow.pl/",
+      retry: 0,
+      headers: {
+        "Api-Key": API_KEY,
+      },
+    });
   });
 
   it("Exposes the Payments class", () => {
